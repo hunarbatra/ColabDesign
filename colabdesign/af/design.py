@@ -11,7 +11,7 @@ try:
 except:
   from jax.experimental.optimizers import sgd, adam
   
-design_model = design_model()
+  dm = design_model()
 
 ####################################################
 # AF_DESIGN - design functions
@@ -245,7 +245,7 @@ class _af_design:
     if save_best: self._save_best()
     if verbose and (self._k % verbose) == 0:
       self._print_log(f"{self._k}")
-      print("test2")
+      print(self.dm.get_seqs())
 
   def _crop(self):
     ''' determine positions to crop '''
@@ -326,7 +326,6 @@ class _af_design:
     # run
     self.run(backprop=False)
     if verbose: self._print_log("predict")
-    print("test")
 
     # reset settings
     (self.opt, self._args, self._params) = (opt, args, params)
