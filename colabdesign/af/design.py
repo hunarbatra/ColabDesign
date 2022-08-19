@@ -3,12 +3,15 @@ import jax
 import jax.numpy as jnp
 import numpy as np
 from colabdesign.af.alphafold.common import residue_constants
-from colabdesign.shared.utils import copy_dict, update_dict, Key, dict_to_str, to_float
+from colabdesign.shared.utils import copy_dict, Key, dict_to_str, to_float
+from colabdesign.shared.model import design_model
 
 try:
   from jax.example_libraries.optimizers import sgd, adam
 except:
   from jax.experimental.optimizers import sgd, adam
+  
+design_model = design_model()
 
 ####################################################
 # AF_DESIGN - design functions
@@ -227,8 +230,9 @@ class _af_design:
     keys = ["models","recycles","hard","soft","temp","seqid","loss",
             "msa_ent","plddt","pae","helix","con","i_pae","i_con",
             "sc_fape","sc_rmsd","dgram_cce","fape","ptm","rmsd"]
-    print(dict_to_str(self.aux["log"], filt=self.opt["weights"],
-                      print_str=print_str, keys=keys, ok="rmsd"))
+    print_str = dict_to_str(self.aux["log"], filt=self.opt["weights"],
+                      print_str=print_str, keys=keys, ok="rmsd")
+    print_str += "\nseq " + self.design_model.get_seqs()
 
   def _save_best(self):
     metric = self.aux["log"][self._args["best_metric"]]
@@ -391,12 +395,9 @@ class _af_design:
     '''three stage design (logits→soft→hard)'''
     self.set_opt(num_models=num_models, sample_models=True) # sample models
     self.design_logits(soft_iters, e_soft=1, **kwargs)
-    print(self.aux["seq"]["pseudo"])
     self.design_soft(temp_iters, e_temp=1e-2, **kwargs)
-    print(self.aux["seq"]["pseudo"])
     self.set_opt(num_models=len(self._model_params)) # use all models
     self.design_hard(hard_iters, temp=1e-2, dropout=False, save_best=True, **kwargs)
-    print(self.aux["seq"]["pseudo"])
 
   def design_semigreedy(self, iters=100, tries=20, num_models=1,
                         use_plddt=True, save_best=True, verbose=1):
