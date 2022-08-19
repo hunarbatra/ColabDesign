@@ -245,6 +245,7 @@ class _af_design:
     if save_best: self._save_best()
     if verbose and (self._k % verbose) == 0:
       self._print_log(f"{self._k}")
+      print("test2")
 
   def _crop(self):
     ''' determine positions to crop '''
