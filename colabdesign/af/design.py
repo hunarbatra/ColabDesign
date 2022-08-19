@@ -391,10 +391,12 @@ class _af_design:
     '''three stage design (logits→soft→hard)'''
     self.set_opt(num_models=num_models, sample_models=True) # sample models
     self.design_logits(soft_iters, e_soft=1, **kwargs)
+    print(self.aux["seq"]["pseudo"])
     self.design_soft(temp_iters, e_temp=1e-2, **kwargs)
+    print(self.aux["seq"]["pseudo"])
     self.set_opt(num_models=len(self._model_params)) # use all models
     self.design_hard(hard_iters, temp=1e-2, dropout=False, save_best=True, **kwargs)
-    print('Current iteration sequence: ' + self._params["seq"].argmax(-1),20)
+    print(self.aux["seq"]["pseudo"])
 
   def design_semigreedy(self, iters=100, tries=20, num_models=1,
                         use_plddt=True, save_best=True, verbose=1):
