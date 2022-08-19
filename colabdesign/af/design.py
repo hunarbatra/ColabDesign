@@ -230,10 +230,8 @@ class _af_design:
     keys = ["models","recycles","hard","soft","temp","seqid","loss",
             "msa_ent","plddt","pae","helix","con","i_pae","i_con",
             "sc_fape","sc_rmsd","dgram_cce","fape","ptm","rmsd"]
-    print_str = dict_to_str(self.aux["log"], filt=self.opt["weights"],
-                      print_str=print_str, keys=keys, ok="rmsd")
-    print_str += "\nseq " + str(self.design_model.get_seqs())
-    print(print_str)
+    print(dict_to_str(self.aux["log"], filt=self.opt["weights"],
+                      print_str=print_str, keys=keys, ok="rmsd"))
 
   def _save_best(self):
     metric = self.aux["log"][self._args["best_metric"]]
@@ -327,6 +325,7 @@ class _af_design:
     # run
     self.run(backprop=False)
     if verbose: self._print_log("predict")
+    print("test")
 
     # reset settings
     (self.opt, self._args, self._params) = (opt, args, params)
