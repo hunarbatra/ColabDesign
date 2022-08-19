@@ -394,6 +394,7 @@ class _af_design:
     self.design_soft(temp_iters, e_temp=1e-2, **kwargs)
     self.set_opt(num_models=len(self._model_params)) # use all models
     self.design_hard(hard_iters, temp=1e-2, dropout=False, save_best=True, **kwargs)
+    print('Current iteration sequence: ' + self._params["seq"].argmax(-1),20)
 
   def design_semigreedy(self, iters=100, tries=20, num_models=1,
                         use_plddt=True, save_best=True, verbose=1):
