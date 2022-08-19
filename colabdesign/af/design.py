@@ -233,6 +233,7 @@ class _af_design:
     print_str = dict_to_str(self.aux["log"], filt=self.opt["weights"],
                       print_str=print_str, keys=keys, ok="rmsd")
     print_str += "\nseq " + self.design_model.get_seqs()
+    print(print_str)
 
   def _save_best(self):
     metric = self.aux["log"][self._args["best_metric"]]
