@@ -10,8 +10,6 @@ try:
   from jax.example_libraries.optimizers import sgd, adam
 except:
   from jax.experimental.optimizers import sgd, adam
-  
-  dm = design_model()
 
 ####################################################
 # AF_DESIGN - design functions
@@ -245,7 +243,7 @@ class _af_design:
     if save_best: self._save_best()
     if verbose and (self._k % verbose) == 0:
       self._print_log(f"{self._k}")
-      print(self.dm.get_seqs())
+      print(design_model.get_seqs())
 
   def _crop(self):
     ''' determine positions to crop '''
