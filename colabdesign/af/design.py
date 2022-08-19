@@ -232,7 +232,7 @@ class _af_design:
             "sc_fape","sc_rmsd","dgram_cce","fape","ptm","rmsd"]
     print_str = dict_to_str(self.aux["log"], filt=self.opt["weights"],
                       print_str=print_str, keys=keys, ok="rmsd")
-    print_str += "\nseq " + self.design_model.get_seqs()
+    print_str += "\nseq " + str(self.design_model.get_seqs())
     print(print_str)
 
   def _save_best(self):
