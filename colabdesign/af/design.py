@@ -412,23 +412,17 @@ class _af_design:
       L,A = seq.shape[-2:]
       while True:
         if plddt is None:
-          try:
-            i = jax.random.randint(self.key(),[],0,L)
-          except:
-            print("error1")
+          i = jax.random.randint(self.key(),[],0,L)
         else:
           p = (1-plddt)/(1-plddt).sum(-1,keepdims=True)
           # bias mutations towards positions with low pLDDT
           # https://www.biorxiv.org/content/10.1101/2021.08.24.457549v1
-          try:
-            i = jax.random.choice(self.key(),jnp.arange(L),[],p=p)
-          except:
-            print("error2")
-
-        try:
+          print(i.shape)
+          print(i)
+          print(p.shape)
+          print(p)
+          i = jax.random.choice(self.key(),jnp.arange(L),[],p=p)
           a = jax.random.randint(self.key(),[],0,A)
-        except:
-          print("error3")
           
         if seq[0,i,a] == 0: break      
       return seq.at[:,i,:].set(jnp.eye(A)[a])
