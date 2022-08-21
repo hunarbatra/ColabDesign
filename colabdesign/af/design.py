@@ -417,11 +417,11 @@ class _af_design:
           p = (1-plddt)/(1-plddt).sum(-1,keepdims=True)
           # bias mutations towards positions with low pLDDT
           # https://www.biorxiv.org/content/10.1101/2021.08.24.457549v1
-          print(i.shape)
-          print(i)
           print(p.shape)
           print(p)
           i = jax.random.choice(self.key(),jnp.arange(L),[],p=p)
+          print(i.shape)
+          print(i)
           a = jax.random.randint(self.key(),[],0,A)
           
         if seq[0,i,a] == 0: break      
