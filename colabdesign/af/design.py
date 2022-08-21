@@ -398,10 +398,10 @@ class _af_design:
     self.design_hard(hard_iters, temp=1e-2, dropout=False, save_best=True, **kwargs)
 
   def design_semigreedy(self, iters=100, tries=20, num_models=1,
-                        use_plddt=True, save_best=True, verbose=1):
+                        use_plddt=True, save_best=True, verbose=1, crop=False):
     
     '''semigreedy search'''    
-    self.set_opt(hard=True, dropout=False, crop=False,
+    self.set_opt(hard=True, dropout=False, crop=crop,
                  num_models=num_models, sample_models=False)
     
     if self._k == 0:
